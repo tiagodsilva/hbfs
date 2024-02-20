@@ -42,9 +42,9 @@ def simulate_data(num_samples: int, dim: int, num_players: int, alpha_type: str 
     return x, omega, ys 
  
 if __name__ == '__main__': 
-    num_samples = int(1e3) 
+    num_samples = int(3e3) 
     dim = 2 
-    num_players = 20   
+    num_players = 150 
     mtype = 'random' 
 
     x, omega, ys = simulate_data(num_samples, dim, num_players, mtype)
