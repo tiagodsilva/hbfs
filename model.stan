@@ -3,8 +3,8 @@ data {
   int<lower=0> K;   // number of predictors
   int<lower=0> M;   // number of players 
   matrix[N, K] x;   // predictor matrix
-  vector[N] y;      // outcome vector
-  array[N] int omega;  // player id  
+  array[N] int y;      // outcome vector
+  array[N] int omega;  // player ids 
 }
 parameters {
   vector[M] alpha;      // fixed effects  
@@ -14,5 +14,5 @@ model {
   beta ~ normal(0., 1.); 
   alpha ~ normal(0. ,1.); 
 
-  y ~ bernoulli(logit(x * beta + alpha[omega]));  // likelihood
+  y ~ bernoulli_logit(x * beta + alpha[omega]);  // likelihood
 }

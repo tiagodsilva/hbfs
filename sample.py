@@ -1,19 +1,17 @@
 import stan 
 import numpy as np 
-
+import json 
 if __name__ == '__main__': 
     stan_code = open('model.stan', 'r').read() 
 
     # Generate data 
-    data = {
-        "N": 12, 
-        "K": 12, 
-        "M": 3, 
-        "x": np.random.randn(12, 12), 
-        "y": np.random.randn(12), 
-        "omega": np.random.randint(2, size=(12,)) + 1 
-    }
-    
+    mtype = 'random' 
+    data = json.load(open(f'data{mtype}.json')) 
+
+    # Cast the data to the correct types 
+    data['omega'] = np.array(data['omega']).astype(int) 
+    data['y'] = np.array(data['y']).astype(int) 
+        
     posterior = stan.build(stan_code, data=data, random_seed=1)
     fit = posterior.sample(num_chains=4, num_samples=2000) 
 
